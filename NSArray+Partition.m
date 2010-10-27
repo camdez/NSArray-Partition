@@ -30,14 +30,14 @@ id identity(id obj, void* context) {
             value = [NSNull null]; // XXX we can't put nil into an NSArray
         
         if (value == previousValue) {
-            [partition addObject:value];
+            [partition addObject:rawValue];
         } else {
             if (partition != nil) {
                 [partitions addObject:partition];
                 [partition release];
             }
         
-            partition = [[NSMutableArray alloc] initWithObjects:value, nil];
+            partition = [[NSMutableArray alloc] initWithObjects:rawValue, nil];
         }
     
         previousValue = value;
