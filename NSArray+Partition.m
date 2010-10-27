@@ -28,8 +28,8 @@ id identity(id obj, void* context) {
         id value = transformer(rawValue, context);
         if (value == nil)
             value = [NSNull null]; // XXX we can't put nil into an NSArray
-        
-        if (value == previousValue) {
+
+        if ([value isEqual:previousValue]) {
             [partition addObject:rawValue];
         } else {
             if (partition != nil) {
