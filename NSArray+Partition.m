@@ -8,24 +8,24 @@
 #import "NSArray+Partition.h"
 
 
-id identity(id obj) {
+id identity(id obj, void* context) {
     return obj;
 }
 
 @implementation NSArray (Partition)
 
 - (NSArray *)cpd_partitionedArray {
-    return [self cpd_partitionedArrayUsingFunction:identity];
+    return [self cpd_partitionedArrayUsingFunction:identity context:NULL];
 }
 
-- (NSArray *)cpd_partitionedArrayUsingFunction:(id (*)(id))transformer {
+- (NSArray *)cpd_partitionedArrayUsingFunction:(id (*)(id, void *))transformer context:(void *)context {
     NSMutableArray* partitions = [NSMutableArray array];
     NSMutableArray* partition = nil;
     
     id previousValue = nil;
     
     for (id rawValue in self) {
-        id value = transformer(rawValue);
+        id value = transformer(rawValue, context);
         if (value == nil)
             value = [NSNull null]; // XXX we can't put nil into an NSArray
         
